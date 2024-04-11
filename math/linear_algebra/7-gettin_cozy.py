@@ -12,6 +12,8 @@ def cat_matrices2D(mat1, mat2, axis=0):
         axis: axis to concatenate
     Returns:
         concatenated matrix"""
+    """axis=0 concatenates the matrices along the rows"""
+    """axis=1 concatenates the matrices along the columns"""
     """checks the number of rows"""
     if axis == 0:
         if len(mat1[0]) != len(mat2[0]):
