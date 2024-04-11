@@ -8,4 +8,11 @@ def matrix_transpose(matrix):
         matrix: 2D matrix
     Returns: new matrix
     """
-    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+    """inner loop iterates for j in range(len(matrix)over the rows of the
+    matrix
+    and appends the elements of the rows to the columns of the new matrix
+    outer loop iterates for i in range(len(matrix)over the columns of the
+    matrix
+    and appends the elements"""
+    return [[matrix[j][i] for j in range(len(matrix))]
+            for i in range(len(matrix[0]))]
