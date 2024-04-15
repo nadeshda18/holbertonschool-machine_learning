@@ -9,12 +9,15 @@ def mat_mul(mat1, mat2):
         mat2: second matrix
     Returns:
         product of two matrices"""
-    """checks if number of columns in mat1
-    is equal to number of rows in mat2"""
-    """a=mat1_row, b=mat2_col"""
-    """zip(*mat2) is transposing mat2"""
     if len(mat1[0]) != len(mat2):
         return None
-    return [[sum(a * b for a, b in zip(mat1_row, mat2_col))
-             for mat2_col in zip(*mat2)]
-            for mat1_row in mat1]
+    result = []
+    for i in range(len(mat1)):
+        row_result = []
+        for j in range(len(mat2[0])):
+            sum = 0
+            for k in range(len(mat1[0])):
+                sum += mat1[i][k] * mat2[k][j]
+            row_result.append(sum)
+        result.append(row_result)
+    return result
