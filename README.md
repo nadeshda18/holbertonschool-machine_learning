@@ -1,5 +1,7 @@
 # Machine Learning
 
+Welcome to the world of Machine Learning, hosted by Holberton Coding School (campus PR).
+
 ## Math
 
 ### [Linear Algebra](./math/linear_algebra/README.md)
