@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 """plot y as a line graph"""
 
+
 def line():
     """y as a red line"""
     """x should range from 0 - 10"""
