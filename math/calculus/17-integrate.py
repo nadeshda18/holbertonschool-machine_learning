@@ -4,9 +4,16 @@ of a polynomial"""
 
 
 def poly_integral(poly, C=0):
-    """calculates the integral of a polynomial"""
-    if not poly or type(poly) is not list:
+    """poly: a list of coefficients representing a polynomial
+    C: an integer representing the integration constant
+    Returns: a new list of coefficients"""
+    if not isinstance(poly, list) or \
+       not all(isinstance(i, (int, float)) for i in poly):
         return None
     if len(poly) == 1:
-        return [C]
-    return [C] + [poly[i] / (i + 1) for i in range(len(poly))]
+        return [C, poly[0]]
+    result = [C]
+    for i in range(len(poly)):
+        coeff = poly[i] / (i + 1)
+        result.append(int(coeff) if coeff.is_integer() else coeff)
+    return result
