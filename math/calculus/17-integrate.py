@@ -7,7 +7,7 @@ def poly_integral(poly, C=0):
     """poly: a list of coefficients representing a polynomial
     C: an integer representing the integration constant
     Returns: a new list of coefficients"""
-    if not isinstance(poly, list):
+    if not isinstance(poly, list) or not poly:
         return None
     if len(poly) == 1:
         if isinstance(poly[0], (int, float)):
