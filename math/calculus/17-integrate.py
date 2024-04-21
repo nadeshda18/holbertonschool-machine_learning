@@ -13,10 +13,13 @@ def poly_integral(poly, C=0):
        not all(isinstance(i, (int, float)) for i in poly):
         return None
     if len(poly) == 1:
-        if poly[0] == 0:
-            return [C]
+        if isinstance(poly[0], (int, float)):
+            if poly[0] == 0:
+                return [C]
+            else:
+                return [C, poly[0]]
         else:
-            return [C, poly[0]]
+            return None
     result = [C]
     for i in range(len(poly)):
         coeff = poly[i] / (i + 1)
