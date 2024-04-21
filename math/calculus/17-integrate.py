@@ -4,21 +4,19 @@ of a polynomial"""
 
 
 def poly_integral(poly, C=0):
-    """poly: a list of coefficients representing a polynomial
+    """
+    poly: a list of coefficients representing a polynomial
     C: an integer representing the integration constant
-    Returns: a new list of coefficients"""
-    if not isinstance(poly, list) or not poly:
+    Returns: a new list of coefficients
+    """
+    if not isinstance(poly, list) or not poly or \
+       not all(isinstance(i, (int, float)) for i in poly):
         return None
     if len(poly) == 1:
-        if isinstance(poly[0], (int, float)):
-            if poly[0] == 0:
-                return [C]
-            else:
-                return [C, poly[0]]
+        if poly[0] == 0:
+            return [C]
         else:
-            return None
-    elif not all(isinstance(i, (int, float)) for i in poly):
-        return None
+            return [C, poly[0]]
     result = [C]
     for i in range(len(poly)):
         coeff = poly[i] / (i + 1)
