@@ -7,6 +7,9 @@ def poly_integral(poly, C=0):
     """poly: a list of coefficients representing a polynomial
     C: an integer representing the integration constant
     Returns: a new list of coefficients"""
+    if not isinstance(poly, list) or \
+       not all(isinstance(i, (int, float)) for i in poly):
+        return None
     if len(poly) == 1:
         if isinstance(poly[0], (int, float)):
             if poly[0] == 0:
@@ -15,9 +18,6 @@ def poly_integral(poly, C=0):
                 return [C, poly[0]]
         else:
             return None
-    elif not isinstance(poly, list) or \
-         not all(isinstance(i, (int, float)) for i in poly):
-        return None
     result = [C]
     for i in range(len(poly)):
         coeff = poly[i] / (i + 1)
