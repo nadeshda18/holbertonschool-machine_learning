@@ -15,6 +15,9 @@ def poly_integral(poly, C=0):
                 return [C, poly[0]]
         else:
             return None
+    elif not isinstance(poly, list) or \
+         not all(isinstance(i, (int, float)) for i in poly):
+        return None
     result = [C]
     for i in range(len(poly)):
         coeff = poly[i] / (i + 1)
