@@ -48,28 +48,35 @@ class Node:
             return (1 + self.left_child.count_nodes_below() +
                     self.right_child.count_nodes_below())
 
-    def left_child_add_prefix(self,text):
-        lines=text.split("\n")
-        new_text="    +--"+lines[0]+"\n"
-        for x in lines[1:] :
-            new_text+=("    |  "+x)+"\n"
+    def left_child_add_prefix(self, text):
+        lines = text.split("\n")
+        new_text = "    +--"+lines[0]+"\n"
+        for x in lines[1:]:
+            new_text += ("    |  "+x)+"\n"
         return (new_text)
 
     def right_child_add_prefix(self, text):
         lines = text.split("\n")
-        new_text = "    +--" + lines[0]+"\n"
-        for x in lines[1:] :
-            new_text +=("   |   "+x)+"\n"
+        new_text = "    +--" + lines[0]
+        for x in lines[1:]:
+            new_text += "\n    |  " + x
         return new_text
 
     def __str__(self):
+        if self.is_root:
+            node_text = (
+                f"root [feature={self.feature},"
+                f" threshold={self.threshold}]"
+            )
+        else:
+            node_text = (
+                f"-> node [feature={self.feature},"
+                f" threshold={self.threshold}]"
+            )
+
         left_child_str = self.left_child_add_prefix(str(self.left_child))
         right_child_str = self.right_child_add_prefix(str(self.right_child))
-        node_type = "root" if self.depth == 0 else "node"
-        return (f"-> {node_type} [feature={self.feature}, "
-                f"threshold={self.threshold}]\n"
-                f"{left_child_str}"
-                f"{right_child_str}")
+        return f"{node_text}\n{left_child_str}{right_child_str}"
 
 
 class Leaf(Node):
