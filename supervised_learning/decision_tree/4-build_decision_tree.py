@@ -102,9 +102,11 @@ class Node:
                 child.lower = self.lower.copy()
                 child.upper = self.upper.copy()
                 if child == self.left_child:
-                    child.lower[self.feature] = max(child.lower.get(self.feature, -np.inf), self.threshold)
+                    child.lower[self.feature] = max(
+                        child.lower.get(self.feature, -np.inf), self.threshold)
                 else:  # right child
-                    child.upper[self.feature] = min(child.upper.get(self.feature, np.inf), self.threshold)
+                    child.upper[self.feature] = min(
+                        child.upper.get(self.feature, np.inf), self.threshold)
 
         for child in [self.left_child, self.right_child]:
             if child is not None:
