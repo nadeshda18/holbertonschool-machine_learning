@@ -318,39 +318,26 @@ class Decision_Tree():
             """returns the accuracy of the decision tree on the test data"""
             return np.sum(np.equal(self.predict(test_explanatory), test_target))/test_target.size
 
-    def possible_thresholds(self,node,feature) :
+    def possible_thresholds(self, node, feature):
         values = np.unique((self.explanatory[:,feature])[node.sub_population])
         return (values[1:]+values[:-1])/2
 
-    def Gini_split_criterion_one_feature(self,node,feature) :
-        """ Compute a numpy array of booleans Left_F of shape (n,t,c) where
-        #    -> n is the number of individuals in the sub_population corresponding to node
-        #    -> t is the number of possible thresholds
-        #    -> c is the number of classes represented in node
-        # such that Left_F[ i , j , k] is true iff
-        #    -> the i-th individual in node is of class k
-        #    -> the value of the chosen feature on the i-th individual
-        #                              is greater than the t-th possible threshold
-        # then by squaring and summing along 2 of the axes of Left_F[ i , j , k],
-        #                     you can get the Gini impurities of the putative left childs
-        #                    as a 1D numpy array of size t
-        #
-        # Then do the same with the right child
-        # Then compute the average sum of these Gini impurities
-        #
-        # Then  return the threshold and the Gini average  for which the Gini average is the smallest
-        """
-        thresholds = self.possible_thresholds(node,feature)
-        n = node.sub_population.sum()
-        c = np.max(self.target)+1
-        Left_F = np.zeros((n,thresholds.size,c),dtype='bool')
-        Left_F[np.arange(n),np.searchsorted(thresholds,(self.explanatory[:,feature])[node.sub_population]),self.target[node.sub_population]] = True
-        Right_F = np.logical_not(Left_F)
-        Left_Gini = (1-((Left_F.sum(axis=0)/Left_F.sum())**2).sum(axis=1)).sum(axis=1)
-        Right_Gini = (1-((Right_F.sum(axis=0)/Right_F.sum())**2).sum(axis=1)).sum(axis=1)
-        return np.mean(Left_Gini+Right_Gini), feature
 
-    def Gini_split_criterion(self,node) :
+    def Gini_split_criterion_one_feature(self, node, feature):
+        thresholds = self.possible_thresholds(node, feature)
+        thresholds = np.append(thresholds, thresholds[-1])
+        classes = np.unique(self.target[node.sub_population])
+        feature_values = self.explanatory[node.sub_population, feature][:, None]
+        class_values = self.target[node.sub_population][:, None] == classes[None, :]
+        Left_F = np.logical_and(feature_values > thresholds[None, :, None], class_values[:, None, :])
+        left_gini = np.sqrt((Left_F**2).sum(axis=(0, 2)))
+        Right_F = ~Left_F
+        right_gini = np.sqrt((Right_F**2).sum(axis=(0, 2)))
+        avg_gini = (left_gini + right_gini) / 2
+        min_index = np.argmin(avg_gini)
+        return thresholds[min_index], avg_gini[min_index]
+
+    def Gini_split_criterion(self, node):
             X=np.array([self.Gini_split_criterion_one_feature(node,i) for i in range(self.explanatory.shape[1])])
             i =np.argmin(X[:,1])
             return i, X[i,0]
