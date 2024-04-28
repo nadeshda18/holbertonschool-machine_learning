@@ -48,35 +48,39 @@ class Node:
             return (1 + self.left_child.count_nodes_below() +
                     self.right_child.count_nodes_below())
 
-    def left_child_add_prefix(self, text):
-        lines = text.split("\n")
-        new_text = "    +--"+lines[0]+"\n"
-        for x in lines[1:]:
-            new_text += ("    |  "+x)+"\n"
-        return (new_text)
+    def __str__(self):
+        """string representation of the node"""
+        if self.is_root:
+            node_str = ("root [feature={self.feature}, "
+                        "threshold={self.threshold}]\n".format(self=self))
+        else:
+            node_str = ("-> node [feature={self.feature}, "
+                        "threshold={self.threshold}]\n".format(self=self))
 
-    def right_child_add_prefix(self, text):
+        left_str = (
+            self.left_child_add_prefix(self.left_child.__str__())
+            if self.left_child else "")
+        right_str = (
+            self.right_child_add_prefix(self.right_child.__str__())
+            if self.right_child else "")
+
+        return node_str + left_str + right_str
+
+    def left_child_add_prefix(self, text):
+        """ Add prefix to the left child"""
         lines = text.split("\n")
-        new_text = "    +--"+lines[0] + "\n"
-        new_text += "\n".join(["   " + "   " + line for line in lines[1:-1]])
+        new_text = "    +--" + lines[0] + "\n"
+        new_text += "\n".join(["    |  " + line for line in lines[1:-1]])
         new_text += "\n" if len(lines) > 1 else ""
         return new_text
 
-    def __str__(self):
-        if self.is_root:
-            node_text = (
-                f"root [feature={self.feature},"
-                f" threshold={self.threshold}]"
-            )
-        else:
-            node_text = (
-                f"-> node [feature={self.feature},"
-                f" threshold={self.threshold}]"
-            )
-
-        left_child_str = self.left_child_add_prefix(str(self.left_child))
-        right_child_str = self.right_child_add_prefix(str(self.right_child))
-        return f"{node_text}\n{left_child_str}{right_child_str}"
+    def right_child_add_prefix(self, text):
+        """ Add prefix to the right child"""
+        lines = text.split("\n")
+        new_text = "    +--" + lines[0] + "\n"
+        new_text += "\n".join(["    " + "   " + line for line in lines[1:-1]])
+        new_text += "\n" if len(lines) > 1 else ""
+        return new_text
 
 
 class Leaf(Node):
