@@ -30,7 +30,7 @@ class Isolation_Random_Tree():
 
     def count_nodes(self, only_leaves=False):
         """Calculate the number of nodes in the decision tree."""
-        return self.root.get_leaves_below()
+        return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def update_bounds(self):
         """update the bounds of the leaves in the tree"""
