@@ -5,6 +5,7 @@ import numpy as np
 
 
 class NeuralNetwork:
+    """class NeuralNetwork"""
     def __init__(self, nx, nodes):
         """nx = the number of input features to the neuron
         nodes = the number of nodes found in the hidden layer
