@@ -159,7 +159,11 @@ class NeuralNetwork:
                 y_points.append(cost)
                 if verbose is True:
                     print("Cost after {} iterations: {}".format(i, cost))
-        for i in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(X, Y, self.__A1, self.__A2, alpha)
+
+        if graph is True:
+            plt.plot(x_points, y_points, 'b-')
+            plt.xlabel('iteration')
+            plt.ylabel('cost')
+            plt.title('Training Cost')
+            plt.show()
         return self.evaluate(X, Y)
