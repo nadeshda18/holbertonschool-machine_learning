@@ -150,5 +150,7 @@ class DeepNeuralNetwork:
             # update weights and biases of the current layers
             # by substracing the product of the learning rate
             # and the derivatives dw and db
-            self.__weights['W' + str(i)] = weights_copy['W' + str(i)] - alpha * dw
-            self.__weights['b' + str(i)] = weights_copy['b' + str(i)] - alpha * db
+            self.__weights['W' + str(i)] = weights_copy[
+                'W' + str(i)] - alpha * dw
+            self.__weights['b' + str(i)] = weights_copy[
+                'b' + str(i)] - alpha * db
