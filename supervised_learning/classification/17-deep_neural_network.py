@@ -21,13 +21,13 @@ class DeepNeuralNetwork:
         if type(layers) is not list or not layers:
             raise TypeError("layers must be a list of positive integers")
         # attribute L = number of layers in the neural network
-        self.L = len(layers)
+        self.__L = len(layers)
         # cache = empty dictionary to hold all
         # intermediary values of the network
-        self.cache = {}
+        self.__cache = {}
         # weights = empty dictionary to hold all
         # weights and biased of the network
-        self.weights = {}
+        self.__weights = {}
         for i in range(self.L):
             if type(layers[i]) is not int or layers[i] < 1:
                 raise TypeError("layers must be a list of positive integers")
@@ -44,3 +44,18 @@ class DeepNeuralNetwork:
                     layers[i], layers[i - 1]) * np.sqrt(2 / layers[i - 1])
                 # bias initialized to 0
                 self.weights['b' + str(i + 1)] = np.zeros((layers[i], 1))
+
+    @property
+    def L(self):
+        """returns private instance attribute L"""
+        return self.__L
+
+    @property
+    def cache(self):
+        """returns private instance attribute cache"""
+        return self.__cache
+
+    @property
+    def weights(self):
+        """returns private instance attribute weights"""
+        return self.__weights
