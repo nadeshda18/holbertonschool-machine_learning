@@ -85,12 +85,12 @@ class DeepNeuralNetwork:
         """calculate the cost of the model"""
         # Y = 2D array
         m = Y.shape[1]
-        # Y * np.log(A) = log loss for one class label of
-        # one example, only for class labels that are 1
-        # (1 - Y) * np.log(1.0000001 - A) = log loss for
-        # one class label of one example, only for class 0
-        # np.sum adds up the log loss for all class labels
-        # -1 / m averages the log loss for all examples
+        # Y * np.log(A) = log loss one class label of
+        # one example, only class labels that are 1
+        # (1 - Y) * np.log(1.0000001 - A) = log loss
+        # one class label of one example, only class 0
+        # np.sum adds up the log loss all class labels
+        # -1 / m averages the log loss all examples
         cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) *
                                np.log(1.0000001 - A))
         return cost
