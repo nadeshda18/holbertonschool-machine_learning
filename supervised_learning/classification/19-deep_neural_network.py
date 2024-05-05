@@ -91,5 +91,6 @@ class DeepNeuralNetwork:
         # one class label of one example, only for class 0
         # np.sum adds up the log loss for all class labels
         # -1 / m averages the log loss for all examples
-        cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+        cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) *
+                               np.log(1.0000001 - A))
         return cost
