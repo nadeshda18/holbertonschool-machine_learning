@@ -117,7 +117,7 @@ class DeepNeuralNetwork:
 
         Z = (np.matmul(self.__weights["W" + str(L1)],
                        self.__cache['A' + str(L1 - 1)]) +
-             self.__weights['b' + str(L)])
+             self.__weights['b' + str(L1)])
         A = np.exp(Z) / np.sum(np.exp(Z), axis=0)
         self.__cache['A' + str(L1)] = A
 
