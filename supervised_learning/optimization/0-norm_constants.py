@@ -4,7 +4,7 @@ of a matrix"""
 import numpy as np
 
 
-def normalization_constant(X):
+def normalization_constants(X):
     """X = numpy.ndarray of shape (m, nx) to normalize
     m = number of data points
     nx = number of features
