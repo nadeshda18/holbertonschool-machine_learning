@@ -3,6 +3,7 @@
 optimization algorithm"""
 import tensorflow as tf
 
+
 def create_momentum_op(alpha, beta1):
     """alpha = learning rate
     beta1 = momentum weight
