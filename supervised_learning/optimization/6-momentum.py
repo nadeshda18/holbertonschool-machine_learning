@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """sets up the gradient descent with momentum
 optimization algorithm"""
-import numpy as np
 import tensorflow as tf
 
 def create_momentum_op(alpha, beta1):
