@@ -21,14 +21,16 @@ def create_mini_batches(X, Y, batch_size):
 
     num_complete_minibatches = m // batch_size
 
-    for i in range(0, m, batch_size):
-        X_batch = X[i * batch_size: i * batch_size + batch_size, :]
-        Y_batch = Y[i * batch_size: i * batch_size + batch_size, :]
-        mini_batches.append((X_batch, Y_batch))
+    for k in range(0, num_complete_minibatches):
+        X_mini_batch = X[k * batch_size: k * batch_size + batch_size, :]
+        Y_mini_batch = Y[k * batch_size: k * batch_size + batch_size, :]
+        mini_batch = (X_mini_batch, Y_mini_batch)
+        mini_batches.append((mini_batch))
 
     if m % batch_size != 0:
-        X_batch = X[num_complete_minibatches * batch_size: m, :]
-        Y_batch = Y[num_complete_minibatches * batch_size: m, :]
-        mini_batches.append((X_batch, Y_batch))
+        X_mini_batch = X[num_complete_minibatches * batch_size: m, :]
+        Y_mini_batch = Y[num_complete_minibatches * batch_size: m, :]
+        mini_batch = (X_mini_batch, Y_mini_batch)
+        mini_batches.append((mini_batch))
 
     return mini_batches
